@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    image: mysql/mysql-server:latest
+    volumes:
+      - "./mysql-data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: testdb
+      MYSQL_ROOT_HOST: "%"
+
+  discuz_x:
+    image: discuz-x:latest
+    ports:
+      - "80:80"
+    volumes:
+      - "./discuz-data/config:/var/www/html/config"
+      - "./discuz-data/data:/var/www/html/data"
+      - "./discuz-data/uc_server_data:/var/www/html/uc_server/data"
+      - "./discuz-data/uc_client_data:/var/www/html/uc_client/data"
+      - "./discuz-data/template:/var/www/html/template"
+    depends_on:
+      - db
