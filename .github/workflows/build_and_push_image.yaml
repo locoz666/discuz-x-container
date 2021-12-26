@@ -1,0 +1,33 @@
+name: 构建并推送镜像
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 获取最新版本的版本号
+      run: |
+        git clone https://gitee.com/Discuz/DiscuzX.git
+        cd DiscuzX
+        DISCUZ_LATEST_VERSION=$(git tag | tail -n 1)
+        echo VERSION_TAG="locoz666666/discuz-x:${DISCUZ_LATEST_VERSION}" >> $GITHUB_ENV
+        echo LASTEST_TAG="locoz666666/discuz-x:latest" >> $GITHUB_ENV
+
+    - name: 登录DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: 构建并推送镜像到DockerHub
+      uses: docker/build-push-action@v2.3.0
+      with:
+        push: true
+        tags: |
+          ${{env.VERSION_TAG}}
+          ${{env.LASTEST_TAG}}
