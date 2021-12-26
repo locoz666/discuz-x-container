@@ -1,6 +1,7 @@
 name: 构建并推送镜像
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: 0 0 * * *
 
