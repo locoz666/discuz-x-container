@@ -1,16 +1,11 @@
-FROM ubuntu:21.04 as download
+FROM python:3.10 as download
 
-RUN apt-get update -y && \
-    apt-get install git -y && \
-    apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
+COPY download_latest_release_version.py .
+RUN pip install requests && \
+    python download_latest_release_version.py && \
+    unzip /DiscuzX.zip -d /DiscuzX
 
-RUN git clone https://gitee.com/Discuz/DiscuzX.git && \
-    cd DiscuzX && \
-    DISCUZ_LATEST_VERSION=$(git tag | tail -n 1) && \
-    git checkout ${DISCUZ_LATEST_VERSION} && \
-    sed -i "s/20180101/${DISCUZ_LATEST_VERSION#*-}/g" ./upload/source/discuz_version.php
-
+# =====
 FROM php:7-apache
 
 EXPOSE 80

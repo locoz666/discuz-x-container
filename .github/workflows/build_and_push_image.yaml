@@ -13,9 +13,7 @@ jobs:
 
     - name: 获取最新版本的版本号
       run: |
-        git clone https://gitee.com/Discuz/DiscuzX.git
-        cd DiscuzX
-        DISCUZ_LATEST_VERSION=$(git tag | tail -n 1)
+        DISCUZ_LATEST_VERSION=$(curl 'https://gitee.com/api/v5/repos/Discuz/DiscuzX/releases/latest' | python3 -c 'import sys, json; print(json.load(sys.stdin)["name"])')
         echo VERSION_TAG="locoz666666/discuz-x:${DISCUZ_LATEST_VERSION}" >> $GITHUB_ENV
         echo LASTEST_TAG="locoz666666/discuz-x:latest" >> $GITHUB_ENV
 
