@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discuz-x
+  namespace: bbs
+  labels:
+    app.kubernetes.io/instance: discuz-x
+    app.kubernetes.io/name: discuz-x
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app.kubernetes.io/instance: discuz-x
+    app.kubernetes.io/name: discuz-x
+  type: ClusterIP

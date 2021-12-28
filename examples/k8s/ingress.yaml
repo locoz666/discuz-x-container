@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: discuz-x
+  namespace: bbs
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: 'true'
+
+spec:
+  tls:
+    - hosts:
+        - bbs.nightteam.cn
+      secretName: bbs-tls
+  rules:
+    - host: bbs.nightteam.cn
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: discuz-x
+                port:
+                  number: 80

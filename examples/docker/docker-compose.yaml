@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_HOST: "%"
 
   discuz_x:
-    image: discuz-x:latest
+    image: locoz666666/discuz-x:v3.4-20211124
     ports:
       - "80:80"
     volumes:
@@ -22,6 +22,6 @@ services:
       - "./discuz-data/data:/var/www/html/data"
       - "./discuz-data/uc_server_data:/var/www/html/uc_server/data"
       - "./discuz-data/uc_client_data:/var/www/html/uc_client/data"
-      - "./discuz-data/template:/var/www/html/template"
+      - "./discuz-data/overwirte:/tmp/discuz_x_overwirte"
     depends_on:
       - db

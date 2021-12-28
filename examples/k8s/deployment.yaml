@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discuz-x
+  namespace: bbs
+  labels:
+    app.kubernetes.io/instance: discuz-x
+    app.kubernetes.io/name: discuz-x
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: discuz-x
+      app.kubernetes.io/name: discuz-x
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: discuz-x
+        app.kubernetes.io/name: discuz-x
+    spec:
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: discuz-x-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: discuz-x-data
+        - name: uc-server-data
+          persistentVolumeClaim:
+            claimName: discuz-x-uc-server-data
+        - name: uc-client-data
+          persistentVolumeClaim:
+            claimName: discuz-x-uc-client-data
+        - name: overwirte
+          persistentVolumeClaim:
+            claimName: discuz-x-overwirte
+      containers:
+        - name: discuz-x
+          image: 'locoz666666/discuz-x:v3.4-20211124'
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /var/www/html/config
+            - name: data
+              mountPath: /var/www/html/data
+            - name: uc-server-data
+              mountPath: /var/www/html/uc_server/data
+            - name: uc-client-data
+              mountPath: /var/www/html/uc_client/data
+            - name: overwirte
+              mountPath: /tmp/discuz_x_overwirte
