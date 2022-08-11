@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: discuz-x-overwirte
+  name: discuz-x-overwrite
   namespace: bbs
 spec:
   accessModes:

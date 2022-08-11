@@ -32,9 +32,9 @@ spec:
         - name: uc-client-data
           persistentVolumeClaim:
             claimName: discuz-x-uc-client-data
-        - name: overwirte
+        - name: overwrite
           persistentVolumeClaim:
-            claimName: discuz-x-overwirte
+            claimName: discuz-x-overwrite
       containers:
         - name: discuz-x
           image: 'locoz666666/discuz-x:v3.4-20211124'
@@ -52,5 +52,5 @@ spec:
               mountPath: /var/www/html/uc_server/data
             - name: uc-client-data
               mountPath: /var/www/html/uc_client/data
-            - name: overwirte
-              mountPath: /tmp/discuz_x_overwirte
+            - name: overwrite
+              mountPath: /tmp/discuz_x_overwrite

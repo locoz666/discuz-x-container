@@ -22,6 +22,6 @@ services:
       - "./discuz-data/data:/var/www/html/data"
       - "./discuz-data/uc_server_data:/var/www/html/uc_server/data"
       - "./discuz-data/uc_client_data:/var/www/html/uc_client/data"
-      - "./discuz-data/overwirte:/tmp/discuz_x_overwirte"
+      - "./discuz-data/overwrite:/tmp/discuz_x_overwrite"
     depends_on:
       - db
